@@ -1,7 +1,6 @@
 # imgz
 Shell script for prefixing file names of images with their creation dates
 
-https://linux.die.net/man/1/identify
 [identify](https://linux.die.net/man/1/identify) command describes the format and characteristics of one or more image files. E.g., running `identify -verbose IMG_8627.jpg` returns:
 
 ```bash
