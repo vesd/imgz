@@ -4,11 +4,21 @@ getExifDateTimeOriginal() {
   date_time_original=`identify -verbose $1 | grep exif:DateTimeOriginal`
 
   # current format 2019:05:29 12:36:25
-  # desired format 2012-08-31 22.29.52
+  # desired format 2019-05-29 12.36.25
   date_with_hyphens=`echo ${date_time_original:27:10} | tr : -`
   time_with_dots=`echo ${date_time_original:37} | tr : .`
 
   echo $date_with_hyphens $time_with_dots
+}
+
+getFormattedDate() {
+  full_date=$1
+
+  # current format 2021-01-16T19:00:17+02:00
+  # desired format 2021-01-16 19.00.17
+  date=`echo ${full_date:0:10}`
+  time_with_dots=`echo ${full_date:11:8} | tr : .`
+  echo $date $time_with_dots
 }
 
 getDateCreateOrModify() {
@@ -20,9 +30,11 @@ getDateCreateOrModify() {
 
   if [[ $date_create<$date_modify ]]
   then
-    echo DateCreate: $date_create
+    formatted_date_create=$(getFormattedDate $date_create)
+    echo DateCreate: $formatted_date_create
   else
-    echo DateModify: $date_modify
+    formatted_date_modify=$(getFormattedDate $date_modify)
+    echo DateModify: $formatted_date_modify
   fi
 }
 
@@ -40,8 +52,6 @@ do
   if [[ $date_time_original ]]
   then
     echo ExifDateTimeOriginal: $date_time_original
-	# getExifDateTimeOriginal $image
-	# echo 'ya'
   else
     date_create_or_modify=$(getDateCreateOrModify $image)
     echo $date_create_or_modify
