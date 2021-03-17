@@ -30,12 +30,14 @@ getDateCreateOrModify() {
 
   if [[ $date_create<$date_modify ]]
   then
-    formatted_date_create=$(getFormattedDate $date_create)
-    echo DateCreate: $formatted_date_create
+    formatted_date=$(getFormattedDate $date_create)
+    suffix='(created)'
   else
-    formatted_date_modify=$(getFormattedDate $date_modify)
-    echo DateModify: $formatted_date_modify
+    formatted_date=$(getFormattedDate $date_modify)
+    suffix='(modified)'
   fi
+
+  echo $formatted_date $suffix
 }
 
 images=$(echo *.{jpg,JPG,jpeg,JPEG,png,PNG})
@@ -51,9 +53,10 @@ do
 
   if [[ $date_time_original ]]
   then
-    echo ExifDateTimeOriginal: $date_time_original
+    formatted_date=$date_time_original
   else
-    date_create_or_modify=$(getDateCreateOrModify $image)
-    echo $date_create_or_modify
+    formatted_date=$(getDateCreateOrModify $image)
   fi
+
+  echo $formatted_date
 done
