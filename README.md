@@ -11,7 +11,7 @@ Image: IMG_8627.jpg
   ...
   Properties:
     date:create: 2021-03-16T21:45:53+02:00
-    date:modify: 2018-06-25T21:37:08+03:00 # we can use this as a fallback if `exif:DateTimeOriginal` is missing
+    date:modify: 2018-06-25T21:37:08+03:00 # using the smallest of the two as a fallback if `exif:DateTimeOriginal` is missing
     exif:ApertureValue: 2159/1273
     exif:BrightnessValue: 3449/5915
     exif:ColorSpace: 65535
