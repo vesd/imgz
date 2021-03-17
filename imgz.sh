@@ -3,7 +3,12 @@
 getExifDateTimeOriginal() {
   date_time_original=`identify -verbose $1 | grep exif:DateTimeOriginal`
 
-  echo ${date_time_original:27}
+  # current format 2019:05:29 12:36:25
+  # desired format 2012-08-31 22.29.52
+  date_with_hyphens=`echo ${date_time_original:27:10} | tr : -`
+  time_with_dots=`echo ${date_time_original:37} | tr : .`
+
+  echo $date_with_hyphens $time_with_dots
 }
 
 getDateCreateOrModify() {
@@ -35,9 +40,10 @@ do
   if [[ $date_time_original ]]
   then
     echo ExifDateTimeOriginal: $date_time_original
+	# getExifDateTimeOriginal $image
+	# echo 'ya'
   else
     date_create_or_modify=$(getDateCreateOrModify $image)
     echo $date_create_or_modify
   fi
-  
 done
