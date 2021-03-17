@@ -1,12 +1,12 @@
 #! /bin/bash
 
-getExifDateTimeOriginal() {
-  date_time_original=`identify -verbose $1 | grep exif:DateTimeOriginal`
+getFormattedExifDateTime() {
+  exif_date_time_original=`identify -verbose $1 | grep exif:DateTimeOriginal`
 
   # current format 2019:05:29 12:36:25
   # desired format 2019-05-29 12.36.25
-  date_with_hyphens=`echo ${date_time_original:27:10} | tr : -`
-  time_with_dots=`echo ${date_time_original:37} | tr : .`
+  date_with_hyphens=`echo ${exif_date_time_original:27:10} | tr : -`
+  time_with_dots=`echo ${exif_date_time_original:37} | tr : .`
 
   echo $date_with_hyphens $time_with_dots
 }
@@ -21,7 +21,7 @@ getFormattedDate() {
   echo $date $time_with_dots
 }
 
-getDateCreateOrModify() {
+getFormattedDateCreateOrModify() {
   create=`identify -verbose $1 | grep date:create`
   modify=`identify -verbose $1 | grep date:modify`
 
@@ -49,14 +49,14 @@ do
     continue
   fi
 
-  date_time_original=$(getExifDateTimeOriginal $image)
+  exif_date_time=$(getFormattedExifDateTime $image)
 
-  if [[ $date_time_original ]]
+  if [[ $exif_date_time ]]
   then
-    formatted_date=$date_time_original
+    date_time=$exif_date_time
   else
-    formatted_date=$(getDateCreateOrModify $image)
+    date_time=$(getFormattedDateCreateOrModify $image)
   fi
 
-  echo $formatted_date
+  echo $date_time
 done
