@@ -45,7 +45,7 @@ green=`tput setaf 2`
 bold=`tput bold`
 reset=`tput sgr0`
 
-images=$(echo *.{jpg,JPG,jpeg,JPEG,png,PNG})
+images=$(echo *.{jpg,JPG,jpeg,JPEG,png,PNG,HEIC})
 
 echo ${green}Renaming started...${reset}
 
