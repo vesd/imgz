@@ -24,6 +24,9 @@ Image: IMG_8627.jpg
   ...
 ```
 
+## Prerequisites
+`brew install imagemagick`
+
 ## How to use
 - copy photos to the same folder where the `imgz.sh` script file is
 - in terminal, navigate to the folder
